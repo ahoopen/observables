@@ -1,0 +1,27 @@
+<html>
+  <script type="text/javascript" src="Observable.js"></script>
+<body>
+
+  <button id='button'>click me!</button>
+  <button id='stop'>stop</button>
+  <script>
+
+    var button  = document.getElementById('button');
+    var stop = document.getElementById('stop');
+    var stopButtonClicks = Observable.fromEvent(stop, 'click');
+
+    var clicks = Observable
+                  .fromEvent(button, 'click')
+                  .take(3)
+                  // .takeUntil(stopButtonClicks)
+                  .map(value => value.pageX + 'px')
+
+    clicks.subscribe(
+      (value) => console.log(value),
+      (error) => console.log('error:', error),
+      (complete) => console.log('completed!')
+    );
+
+  </script>
+</body>
+</html>
